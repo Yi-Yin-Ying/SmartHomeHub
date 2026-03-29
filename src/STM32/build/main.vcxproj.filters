@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="E:\github\SmartHomeHub\src\STM32\main\Core\Src\main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\github\SmartHomeHub\src\STM32\main\Core\Src\gpio.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\github\SmartHomeHub\src\STM32\main\Core\Src\stm32f1xx_it.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\github\SmartHomeHub\src\STM32\main\Core\Src\stm32f1xx_hal_msp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\github\SmartHomeHub\src\STM32\main\Core\Src\sysmem.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\github\SmartHomeHub\src\STM32\main\Core\Src\syscalls.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="E:\github\SmartHomeHub\src\STM32\main\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="E:\github\SmartHomeHub\src\STM32\main\startup_stm32f103xb.s" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="E:\github\SmartHomeHub\src\STM32\build\cmake\stm32cubemx\STM32_Drivers.dir\$(Configuration)\system_stm32f1xx.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="E:\github\SmartHomeHub\src\STM32\build\cmake\stm32cubemx\STM32_Drivers.dir\$(Configuration)\stm32f1xx_hal_gpio_ex.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="E:\github\SmartHomeHub\src\STM32\build\cmake\stm32cubemx\STM32_Drivers.dir\$(Configuration)\stm32f1xx_hal.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="E:\github\SmartHomeHub\src\STM32\build\cmake\stm32cubemx\STM32_Drivers.dir\$(Configuration)\stm32f1xx_hal_rcc.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="E:\github\SmartHomeHub\src\STM32\build\cmake\stm32cubemx\STM32_Drivers.dir\$(Configuration)\stm32f1xx_hal_rcc_ex.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="E:\github\SmartHomeHub\src\STM32\build\cmake\stm32cubemx\STM32_Drivers.dir\$(Configuration)\stm32f1xx_hal_gpio.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="E:\github\SmartHomeHub\src\STM32\build\cmake\stm32cubemx\STM32_Drivers.dir\$(Configuration)\stm32f1xx_hal_dma.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="E:\github\SmartHomeHub\src\STM32\build\cmake\stm32cubemx\STM32_Drivers.dir\$(Configuration)\stm32f1xx_hal_cortex.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="E:\github\SmartHomeHub\src\STM32\build\cmake\stm32cubemx\STM32_Drivers.dir\$(Configuration)\stm32f1xx_hal_pwr.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="E:\github\SmartHomeHub\src\STM32\build\cmake\stm32cubemx\STM32_Drivers.dir\$(Configuration)\stm32f1xx_hal_flash.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="E:\github\SmartHomeHub\src\STM32\build\cmake\stm32cubemx\STM32_Drivers.dir\$(Configuration)\stm32f1xx_hal_flash_ex.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="E:\github\SmartHomeHub\src\STM32\build\cmake\stm32cubemx\STM32_Drivers.dir\$(Configuration)\stm32f1xx_hal_exti.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Object Libraries">
+      <UniqueIdentifier>{A723DDE0-6F2A-3E61-A67E-82F0A979AA1D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{F6A1B14D-58F9-3D8B-91D6-D88C66E7890E}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

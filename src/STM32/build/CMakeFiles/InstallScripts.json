@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"E:/github/SmartHomeHub/src/STM32/build/cmake_install.cmake",
+		"E:/github/SmartHomeHub/src/STM32/build/cmake/stm32cubemx/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
