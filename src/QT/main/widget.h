@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QWidget>
-
+#include <QtMqtt>
 QT_BEGIN_NAMESPACE
 namespace Ui {
     class Widget;
@@ -16,6 +16,9 @@ public:
     explicit Widget(QWidget *parent = nullptr);
     ~Widget();
 
+    // void connect(const string& hostname){
+
+    // }
 private:
     Ui::Widget *ui;
 };
