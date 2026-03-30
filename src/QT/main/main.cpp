@@ -1,11 +1,13 @@
+// Copyright (C) 2017 The Qt Company Ltd.
+// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR BSD-3-Clause
+
+#include "mainwindow.h"
 #include <QApplication>
-#include "widget.h"
-#include "configuration.h"
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
-    Widget w;
+    MainWindow w;
     w.show();
 
     return a.exec();

@@ -1,48 +1,45 @@
+# Copyright (C) 2022 The Qt Company Ltd.
+# SPDX-License-Identifier: LicenseRef-Qt-Commercial OR BSD-3-Clause
+
 cmake_minimum_required(VERSION 3.16)
+project(mqttsubscriptions LANGUAGES CXX)
 
-project(main VERSION 0.1 LANGUAGES CXX)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+if(NOT DEFINED INSTALL_EXAMPLESDIR)
+    set(INSTALL_EXAMPLESDIR "examples")
+endif()
 
-# 查找 Qt6 组件（添加 Mqtt 组件）
-find_package(Qt6 REQUIRED COMPONENTS Widgets Mqtt)
+set(INSTALL_EXAMPLEDIR "${INSTALL_EXAMPLESDIR}/mqtt/subscriptions")
 
-qt_standard_project_setup()
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Mqtt Network Widgets)
 
-qt_add_executable(main
+qt_add_executable(mqttsubscriptions
     main.cpp
-    widget.cpp
-    widget.h
-    widget.ui
-
-    configuration.h
-    configuration.cpp
-    configuration.ui
-
-    MqttConfig.h
-    MqttConfig.cpp
-
-    MqttConfig.cpp
-    MqttConfig.h
+    mainwindow.cpp mainwindow.h mainwindow.ui
+    subscriptionwindow.cpp subscriptionwindow.h subscriptionwindow.ui
 )
 
-# 统一链接所有 Qt 库
-target_link_libraries(main PUBLIC
-    Qt6::Widgets
-    Qt6::Mqtt
-)
-
-set_target_properties(main PROPERTIES
-    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-    MACOSX_BUNDLE TRUE
+set_target_properties(mqttsubscriptions PROPERTIES
     WIN32_EXECUTABLE TRUE
+    MACOSX_BUNDLE TRUE
 )
 
-include(GNUInstallDirs)
-install(TARGETS main
-    BUNDLE DESTINATION .
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+target_compile_definitions(mqttsubscriptions PUBLIC
+    QT_DEPRECATED_WARNINGS
+)
+
+target_link_libraries(mqttsubscriptions PUBLIC
+    Qt::Core
+    Qt::Gui
+    Qt::Mqtt
+    Qt::Network
+    Qt::Widgets
+)
+
+install(TARGETS mqttsubscriptions
+    RUNTIME DESTINATION "${INSTALL_EXAMPLEDIR}"
+    BUNDLE DESTINATION "${INSTALL_EXAMPLEDIR}"
+    LIBRARY DESTINATION "${INSTALL_EXAMPLEDIR}"
 )
