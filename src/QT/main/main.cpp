@@ -1,6 +1,6 @@
 #include <QApplication>
 #include "widget.h"
-
+#include "configuration.h"
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -8,5 +8,7 @@ int main(int argc, char *argv[])
     Widget w;
     w.show();
 
+    Configuration s;
+    s.show();
     return a.exec();
 }

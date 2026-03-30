@@ -15,6 +15,10 @@ qt_add_executable(main
     widget.cpp
     widget.h
     widget.ui
+
+    configuration.h
+    configuration.cpp
+    configuration.ui
 )
 
 # 统一链接所有 Qt 库
