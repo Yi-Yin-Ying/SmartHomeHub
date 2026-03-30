@@ -163,7 +163,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="setConnectButton">
    <property name="geometry">
     <rect>
      <x>660</x>
@@ -179,27 +179,57 @@
     <string>设置连接配置</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="connectButton">
+   <property name="geometry">
+    <rect>
+     <x>660</x>
+     <y>180</y>
+     <width>141</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>连接MQTT</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections>
   <connection>
-   <sender>pushButton</sender>
+   <sender>setConnectButton</sender>
    <signal>clicked()</signal>
    <receiver>Widget</receiver>
    <slot>openConfiguration()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>759</x>
-     <y>71</y>
+     <x>745</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
-     <x>746</x>
-     <y>199</y>
+     <x>733</x>
+     <y>10</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>connectButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Widget</receiver>
+   <slot>connectMqtt()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>727</x>
+     <y>213</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>729</x>
+     <y>141</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
   <slot>openConfiguration()</slot>
+  <slot>connectMqtt()</slot>
  </slots>
 </ui>
