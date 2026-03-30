@@ -11,3 +11,8 @@ Configuration::~Configuration()
 {
     delete ui;
 }
+
+void Configuration::setConfig(MqttConfig mqttConfig)
+{
+    this->m_mqttConfig=mqttConfig;
+}
