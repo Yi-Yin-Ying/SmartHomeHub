@@ -14,8 +14,12 @@ class Configuration: public QWidget
 public:
     explicit Configuration(QWidget *parent = nullptr);
     ~Configuration();
-    void setConfig(MqttConfig mqttConfig);
+    void setConfig(MqttConfig &mqttConfig);
 private:
     Ui::Form *ui;
-    MqttConfig m_mqttConfig;
+    MqttConfig *m_mqttConfig;
+
+private slots:
+    void save();
+    void quit();
 };
