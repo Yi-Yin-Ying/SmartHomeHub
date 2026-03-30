@@ -19,6 +19,9 @@ qt_add_executable(main
     configuration.h
     configuration.cpp
     configuration.ui
+
+    MqttConfig.h
+    MqttConfig.cpp
 )
 
 # 统一链接所有 Qt 库

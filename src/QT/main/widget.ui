@@ -181,5 +181,25 @@
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Widget</receiver>
+   <slot>openConfiguration()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>759</x>
+     <y>71</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>746</x>
+     <y>199</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>openConfiguration()</slot>
+ </slots>
 </ui>

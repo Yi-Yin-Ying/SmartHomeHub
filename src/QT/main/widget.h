@@ -3,7 +3,8 @@
 #include <QWidget>
 #include <QtMqtt>
 QT_BEGIN_NAMESPACE
-namespace Ui {
+namespace Ui
+{
     class Widget;
 }
 QT_END_NAMESPACE
@@ -19,6 +20,9 @@ public:
     // void connect(const string& hostname){
 
     // }
+private slots: 
+    void openConfiguration();
+
 private:
     Ui::Widget *ui;
 };

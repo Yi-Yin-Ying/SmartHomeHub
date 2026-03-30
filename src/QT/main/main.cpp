@@ -8,7 +8,5 @@ int main(int argc, char *argv[])
     Widget w;
     w.show();
 
-    Configuration s;
-    s.show();
     return a.exec();
 }

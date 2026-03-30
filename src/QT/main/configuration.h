@@ -14,7 +14,7 @@ class Configuration: public QWidget
 public:
     explicit Configuration(QWidget *parent = nullptr);
     ~Configuration();
-signals:
+
 private:
     Ui::Form *ui;
 };
