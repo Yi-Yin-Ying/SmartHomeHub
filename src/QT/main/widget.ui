@@ -36,15 +36,19 @@
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="QLabel" name="label">
+    <item row="6" column="0">
+     <widget class="QLabel" name="label_4">
       <property name="text">
-       <string>域名</string>
+       <string>用户名</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="0">
-     <widget class="QLineEdit" name="hostnamelineEdit"/>
+    <item row="8" column="0">
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>密码</string>
+      </property>
+     </widget>
     </item>
     <item row="2" column="0">
      <widget class="QLabel" name="label_2">
@@ -56,6 +60,22 @@
     <item row="3" column="0">
      <widget class="QLineEdit" name="portlineEdit"/>
     </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>域名</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLineEdit" name="hostnamelineEdit"/>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLineEdit" name="IDlineEdit"/>
+    </item>
+    <item row="9" column="0">
+     <widget class="QLineEdit" name="passwordlineEdit"/>
+    </item>
     <item row="4" column="0">
      <widget class="QLabel" name="label_3">
       <property name="text">
@@ -63,28 +83,8 @@
       </property>
      </widget>
     </item>
-    <item row="5" column="0">
-     <widget class="QLineEdit" name="IDlineEdit"/>
-    </item>
-    <item row="6" column="0">
-     <widget class="QLabel" name="label_4">
-      <property name="text">
-       <string>用户名</string>
-      </property>
-     </widget>
-    </item>
     <item row="7" column="0">
      <widget class="QLineEdit" name="usernamelineEdit"/>
-    </item>
-    <item row="8" column="0">
-     <widget class="QLabel" name="label_5">
-      <property name="text">
-       <string>密码</string>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="0">
-     <widget class="QLineEdit" name="passwordlineEdit"/>
     </item>
    </layout>
   </widget>
@@ -99,6 +99,98 @@
    </property>
    <property name="text">
     <string>保存配置</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="topicLineEdit">
+   <property name="geometry">
+    <rect>
+     <x>91</x>
+     <y>61</y>
+     <width>161</width>
+     <height>41</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>70</y>
+     <width>24</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>主题</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="subscribeButton">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>60</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>订阅</string>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="messageTextEdit">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>110</y>
+     <width>291</width>
+     <height>321</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="sendEdit">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>510</y>
+     <width>211</width>
+     <height>64</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="sendTopiclineEdit">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>470</y>
+     <width>113</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>470</y>
+     <width>54</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>主题</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="sendButton">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>520</y>
+     <width>81</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>发送</string>
    </property>
   </widget>
  </widget>
@@ -136,9 +228,43 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>subscribeButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Widget</receiver>
+   <slot>subscribeTopic()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>362</x>
+     <y>75</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>375</x>
+     <y>22</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>sendButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Widget</receiver>
+   <slot>sendMessage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>360</x>
+     <y>545</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>connectMqtt()</slot>
   <slot>saveConfiguration()</slot>
+  <slot>subscribeTopic()</slot>
+  <slot>sendMessage()</slot>
  </slots>
 </ui>

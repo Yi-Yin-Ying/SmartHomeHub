@@ -29,14 +29,20 @@ void onConnected();
 void onDisconnected();
 void onErrorChanged(QMqttClient::ClientError error);
 void onSslErrors(const QList<QSslError> &errors);
+void subscribeTopic();
+void sendMessage();
+void onMessageReceived(const QMqttMessage &message);
 private:
     Ui::Widget *ui;
 
     QMqttClient *m_client;
+    QMqttSubscription *m_subscription = nullptr;
 
     QString hostname="";
     uint16_t port=0;
     QString clientID="";
     QString username="";
     QString password="";
+
+    QString topic="test";
 };
