@@ -1,4 +1,0 @@
-E:/github/SmartHomeHub/src/STM32/build/CMakeFiles/main.dir
-E:/github/SmartHomeHub/src/STM32/build/CMakeFiles/ALL_BUILD.dir
-E:/github/SmartHomeHub/src/STM32/build/CMakeFiles/ZERO_CHECK.dir
-E:/github/SmartHomeHub/src/STM32/build/cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir
