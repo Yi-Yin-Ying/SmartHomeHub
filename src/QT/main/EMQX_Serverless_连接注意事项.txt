@@ -1,0 +1,147 @@
+========================================
+EMQX Serverless 连接注意事项
+========================================
+
+服务器信息
+----------
+- 部署类型: EMQX Serverless
+- 版本: v5
+- 连接地址: [你的连接地址]
+- SSL 端口: 8883 (必须使用)
+- WebSocket SSL 端口: 8084
+- 协议版本: MQTT 5.0 / MQTT 3.1.1
+- Client ID: [你的客户端ID]
+- 用户名: [你的用户名]
+- 密码: [你的密码]
+
+
+========================================
+问题分析与解决方案
+========================================
+
+1. 传输层无效问题 (QMqttClient::TransportInvalid)
+----------------------------------------------------
+原因:
+  - EMQX Serverless 强制要求 SSL/TLS 加密连接
+  - Qt MQTT 客户端在使用自定义传输层时存在时序问题
+  - 直接设置 SSL socket 传输层会导致"传输层无效"错误
+
+解决方案:
+  - 必须先创建 QSslSocket 并调用 connectToHostEncrypted() 建立底层连接
+  - 然后将 socket 设置给 QMqttClient 的传输层
+  - 使用 100ms 延迟确保 SSL 握手完成后再连接 MQTT
+
+关键代码流程:
+  QSslSocket *sslSocket = new QSslSocket(this);
+  sslSocket->setProtocol(QSsl::TlsV1_2OrLater);
+  sslSocket->setPeerVerifyMode(QSslSocket::VerifyNone);
+  sslSocket->connectToHostEncrypted(hostname, port);
+  m_client->setTransport(sslSocket, QMqttClient::SecureSocket);
+  QTimer::singleShot(100, this, [this]() { m_client->connectToHost(); });
+
+
+2. SSL 证书验证问题
+-------------------
+原因:
+  - 开发测试阶段可能没有正确的 CA 证书
+  - EMQX Serverless 提供的 CA 证书需要正确加载
+
+解决方案:
+  - 暂时使用 VerifyNone 模式禁用证书验证（仅用于开发）
+  - 生产环境应使用 VerifyPeer 并加载正确的 CA 证书
+  - CA 证书路径: :CA/emqxsl-ca.crt
+
+
+3. Qt 依赖配置问题
+------------------
+必须的 Qt 模块:
+  - Qt6::Widgets (UI 界面)
+  - Qt6::Mqtt (MQTT 客户端)
+  - Qt6::Network (网络和 SSL 支持)
+
+注意:
+  - MinGW 版本的 Qt 可能缺少预编译的 SSL 模块
+  - 如遇到 Qt6Ssl 未找到错误，使用 Qt6::Network 即可（包含 SSL 功能）
+
+
+========================================
+连接参数配置
+========================================
+
+必需参数:
+  - hostname: [你的连接地址]
+  - port: 8883
+  - clientID: [你的客户端ID] (必须唯一)
+  - username: [你的用户名] (在 EMQX 控制台创建)
+  - password: [你的密码] (在 EMQX 控制台创建)
+
+可选参数:
+  - protocolVersion: MQTT_5_0 或 MQTT_3_1_1
+  - keepAlive: 默认 60 秒
+  - cleanSession: 默认 true
+
+
+================================--------
+常见错误及处理
+========================================
+
+错误: 传输层无效 (TransportInvalid)
+  - 原因: 未按正确顺序配置 SSL socket
+  - 解决: 参考"问题分析与解决方案"第1条
+
+错误: 用户名或密码错误 (BadUsernameOrPassword)
+  - 原因: username/password 与 EMQX 控制台配置不一致
+  - 解决: 检查 EMQX 控制台的用户凭据设置
+
+错误: 客户端ID被拒绝 (IdRejected)
+  - 原因: ClientID 与现有连接冲突
+  - 解决: 使用唯一 ClientID，或清除旧连接
+
+错误: SSL/TLS 错误
+  - 原因: 证书验证失败
+  - 解决: 检查 CA 证书路径，或临时使用 VerifyNone
+
+
+========================================
+安全建议
+========================================
+
+开发阶段:
+  - 可以使用 VerifyNone 模式方便调试
+  - 硬编码凭据在测试代码中可以接受
+
+生产环境:
+  - 必须使用 VerifyPeer 验证服务器证书
+  - 凭据应从安全配置文件或环境变量读取
+  - 使用强密码
+  - 考虑使用 MQTT 5.0 的高级安全特性
+
+
+========================================
+调试建议
+========================================
+
+1. 启用详细的错误日志
+   - 监听 QMqttClient::errorChanged 信号
+   - 监听 QSslSocket::sslErrors 信号
+
+2. 使用 EMQX Dashboard 监控
+   - 查看实时连接数
+   - 检查客户端连接状态
+   - 查看消息收发统计
+
+3. 测试连接
+   - 使用 MQTTX 等工具先验证连接参数
+   - 确认 EMQX Serverless 部署状态正常
+
+
+========================================
+参考资料
+========================================
+
+- EMQX Serverless 文档: https://www.emqx.com/zh/cloud/serverless-mqtt
+- Qt MQTT 文档: https://doc.qt.io/qt-6/qtmqtt-index.html
+- Qt SSL 文档: https://doc.qt.io/qt-6/qsslsocket.html
+
+
+生成时间: 2026-03-31

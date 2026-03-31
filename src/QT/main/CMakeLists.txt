@@ -5,7 +5,7 @@ project(main VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Widgets Mqtt)
+find_package(Qt6 REQUIRED COMPONENTS Widgets Mqtt Network)
 
 qt_standard_project_setup()
 
@@ -16,7 +16,7 @@ qt_add_executable(main
     widget.ui
 )
 
-target_link_libraries(main PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt6::Mqtt)
+target_link_libraries(main PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt6::Mqtt Qt6::Network)
 
 set_target_properties(main PROPERTIES
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}

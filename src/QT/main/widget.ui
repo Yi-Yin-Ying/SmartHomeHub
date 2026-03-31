@@ -17,8 +17,8 @@
    <property name="geometry">
     <rect>
      <x>630</x>
-     <y>390</y>
-     <width>131</width>
+     <y>380</y>
+     <width>111</width>
      <height>51</height>
     </rect>
    </property>
@@ -29,66 +29,116 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>611</x>
-     <y>51</y>
-     <width>171</width>
-     <height>291</height>
+     <x>460</x>
+     <y>50</y>
+     <width>321</width>
+     <height>301</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
      <widget class="QLabel" name="label">
       <property name="text">
        <string>域名</string>
       </property>
      </widget>
     </item>
-    <item>
+    <item row="1" column="0">
      <widget class="QLineEdit" name="hostnamelineEdit"/>
     </item>
-    <item>
+    <item row="2" column="0">
      <widget class="QLabel" name="label_2">
       <property name="text">
        <string>端口号</string>
       </property>
      </widget>
     </item>
-    <item>
+    <item row="3" column="0">
      <widget class="QLineEdit" name="portlineEdit"/>
     </item>
-    <item>
+    <item row="4" column="0">
      <widget class="QLabel" name="label_3">
       <property name="text">
        <string>ID</string>
       </property>
      </widget>
     </item>
-    <item>
+    <item row="5" column="0">
      <widget class="QLineEdit" name="IDlineEdit"/>
     </item>
-    <item>
+    <item row="6" column="0">
      <widget class="QLabel" name="label_4">
       <property name="text">
        <string>用户名</string>
       </property>
      </widget>
     </item>
-    <item>
+    <item row="7" column="0">
      <widget class="QLineEdit" name="usernamelineEdit"/>
     </item>
-    <item>
+    <item row="8" column="0">
      <widget class="QLabel" name="label_5">
       <property name="text">
        <string>密码</string>
       </property>
      </widget>
     </item>
-    <item>
+    <item row="9" column="0">
      <widget class="QLineEdit" name="passwordlineEdit"/>
     </item>
    </layout>
   </widget>
+  <widget class="QPushButton" name="saveButton">
+   <property name="geometry">
+    <rect>
+     <x>500</x>
+     <y>380</y>
+     <width>91</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>保存配置</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>connectButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Widget</receiver>
+   <slot>connectMqtt()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>692</x>
+     <y>409</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>756</x>
+     <y>466</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>saveButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Widget</receiver>
+   <slot>saveConfiguration()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>612</x>
+     <y>410</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>611</x>
+     <y>467</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>connectMqtt()</slot>
+  <slot>saveConfiguration()</slot>
+ </slots>
 </ui>
