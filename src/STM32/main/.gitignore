@@ -16,10 +16,8 @@ Release/
 # IDE settings
 .settings/
 .idea/
-.vscode/
 *.uvopt
 *.uvproj
-*.ioc
 
 # Temp files
 mx.scratch
@@ -30,3 +28,11 @@ mx.scratch
 # OS files
 .DS_Store
 Thumbs.db
+
+# CubeMX generated (unmodified)
+Drivers/
+Middlewares/
+cmake/stm32cubemx/
+Core/Inc/FreeRTOSConfig.h
+Core/Src/freertos.c
+Core/Src/stm32f1xx_hal_timebase_tim.c
