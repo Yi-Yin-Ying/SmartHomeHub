@@ -1,3 +1,32 @@
-build
+# Build outputs
+build/
+Debug/
+Release/
+*.o
+*.d
+*.obj
+*.elf
+*.bin
+*.hex
+*.map
+*.list
+*.lss
+*.sym
+
+# IDE settings
+.settings/
+.idea/
+.vscode/
+*.uvopt
+*.uvproj
+*.ioc
+
+# Temp files
 mx.scratch
-!.settings
+*.bak
+*.log
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -18,11 +18,12 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "i2c.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "oled.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -43,7 +44,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+OLED_t oled;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -86,7 +87,12 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
+  OLED_Init(&oled, &hi2c1);
+  OLED_Clear(&oled);
+  OLED_ShowString(&oled, 0, 0, "Hello World");
+  OLED_Refresh(&oled);
 
   /* USER CODE END 2 */
 
@@ -97,6 +103,9 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+      OLED_Clear(&oled);
+      OLED_ShowString(&oled, 0, 0, "Hello World");
+      OLED_Refresh(&oled);
   }
   /* USER CODE END 3 */
 }
