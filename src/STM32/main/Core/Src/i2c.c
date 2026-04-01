@@ -63,7 +63,8 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* i2cHandle)
   if(i2cHandle->Instance==I2C1)
   {
   /* USER CODE BEGIN I2C1_MspInit 0 */
-
+  /* Enable AFIO clock for alternate function (required for STM32F1) */
+  __HAL_RCC_AFIO_CLK_ENABLE();
   /* USER CODE END I2C1_MspInit 0 */
 
     __HAL_RCC_GPIOB_CLK_ENABLE();

@@ -57,6 +57,10 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define Relay_Fan_Pin GPIO_PIN_12
+#define Relay_Fan_GPIO_Port GPIOB
+#define Relay_humidifier_Pin GPIO_PIN_13
+#define Relay_humidifier_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 

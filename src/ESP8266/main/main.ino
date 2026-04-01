@@ -16,6 +16,7 @@ const char* mqtt_id = "emqx_clouddf6127";
 const char* mqtt_user = "ESP8266";
 const char* mqtt_pass = "123456";
 
+const char* datatopic="Sensor/Data";
 
 void connectWiFi(const char* wifiName, const char* wifiPass, int timeoutSec) {
     digitalWrite(ledPin, LOW);
@@ -53,6 +54,7 @@ bool connectMqtt() {
 
 void setup() {
     Serial.begin(115200);
+    Serial.setTimeout(50);  // 缩短串口超时，避免阻塞
     
     pinMode(ledPin, OUTPUT);
     pinMode(mqttLedPin, OUTPUT);
@@ -80,6 +82,11 @@ void loop() {
     pc.loop();
     // pc.publish("test","123");
 
+    if(Serial.available()){
+        String str = Serial.readString();
+        // Serial.print(str);
+        pc.publish(datatopic,str.c_str());
+    }
     // Serial.println("123");
-    delay(500);
+    delay(10);  // 缩短延时，保持MQTT心跳稳定
 }
