@@ -1,2 +1,4 @@
 build
 .vscode
+main.ino.globals.h
+sketch.yaml
