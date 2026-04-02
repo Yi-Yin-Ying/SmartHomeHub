@@ -21,6 +21,13 @@
 #include "usart.h"
 
 /* USER CODE BEGIN 0 */
+#include <string.h>
+
+/* Receive buffer */
+#define RX_BUF_SIZE 64
+static uint8_t rx_buf[RX_BUF_SIZE];
+static volatile uint16_t rx_len = 0;
+static uint8_t rx_byte;  /* Single byte buffer for interrupt receive */
 
 /* USER CODE END 0 */
 
@@ -51,7 +58,8 @@ void MX_USART1_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART1_Init 2 */
-
+  /* Start receive interrupt */
+  HAL_UART_Receive_IT(&huart1, &rx_byte, 1);
   /* USER CODE END USART1_Init 2 */
 
 }
@@ -83,6 +91,9 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+    /* USART1 interrupt Init */
+    HAL_NVIC_SetPriority(USART1_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(USART1_IRQn);
   /* USER CODE BEGIN USART1_MspInit 1 */
 
   /* USER CODE END USART1_MspInit 1 */
@@ -106,6 +117,8 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
     */
     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_9|GPIO_PIN_10);
 
+    /* USART1 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(USART1_IRQn);
   /* USER CODE BEGIN USART1_MspDeInit 1 */
 
   /* USER CODE END USART1_MspDeInit 1 */
@@ -113,5 +126,79 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 }
 
 /* USER CODE BEGIN 1 */
+/**
+  * @brief  Get receive buffer pointer
+  */
+uint8_t *UART_GetRxBuffer(void)
+{
+  return rx_buf;
+}
 
+/**
+  * @brief  Get received data length
+  */
+uint16_t UART_GetRxLen(void)
+{
+  return rx_len;
+}
+
+/**
+  * @brief  Set received data length
+  */
+void UART_SetRxLen(uint16_t len)
+{
+  rx_len = len;
+}
+
+/**
+  * @brief  Clear receive buffer
+  */
+void UART_ClearRxBuffer(void)
+{
+  rx_len = 0;
+  memset(rx_buf, 0, RX_BUF_SIZE);
+}
+
+/**
+  * @brief  UART receive complete callback
+  */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+  if (huart->Instance == USART1)
+  {
+    /* Echo back for debug */
+    HAL_UART_Transmit(&huart1, &rx_byte, 1, 10);
+    
+    /* Store received byte */
+    if (rx_len < RX_BUF_SIZE)
+    {
+      rx_buf[rx_len++] = rx_byte;
+      
+      /* Check command when buffer has at least 2 bytes */
+      if (rx_len >= 2)
+      {
+        uint8_t cmd = rx_buf[rx_len-2];
+        uint8_t val = rx_buf[rx_len-1];
+        GPIO_PinState state = (val == '1') ? GPIO_PIN_SET : GPIO_PIN_RESET;
+        
+        if (val == '1' || val == '0')
+        {
+          switch (cmd)
+          {
+            case 'F':
+              HAL_GPIO_WritePin(Relay_Fan_GPIO_Port, Relay_Fan_Pin, state);
+              rx_len = 0;
+              break;
+            case 'H':
+              HAL_GPIO_WritePin(Relay_humidifier_GPIO_Port, Relay_humidifier_Pin, state);
+              rx_len = 0;
+              break;
+          }
+        }
+      }
+    }
+    /* Restart receive interrupt */
+    HAL_UART_Receive_IT(&huart1, &rx_byte, 1);
+  }
+}
 /* USER CODE END 1 */
