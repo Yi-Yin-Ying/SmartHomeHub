@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
+#include <ArduinoJson.h>
 
 WiFiClientSecure wc;
 PubSubClient pc(wc);
@@ -34,11 +35,24 @@ void connectWiFi(const char* wifiName, const char* wifiPass, int timeoutSec) {
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
-    Serial.printf("Message arrived [%s]: ", topic);
-    for (unsigned int i = 0; i < length; i++) {
-        Serial.print((char)payload[i]);
+    StaticJsonDocument<200> doc;
+    DeserializationError error = deserializeJson(doc, payload, length);
+    
+    if (error) {
+        Serial.println("JSON parse failed");
+        return;
     }
-    Serial.println();
+    
+    const char* device = doc["device"];
+    int state = doc["state"] | -1;
+    
+    if (device && state >= 0) {
+        if (strcmp(device, "humidifier") == 0) {
+            Serial.println(state == 1 ? "H1" : "H0");  // H1:打开加湿器 H0:关闭
+        } else if (strcmp(device, "fan") == 0) {
+            Serial.println(state == 1 ? "F1" : "F0");  // F1:打开风扇 F0:关闭
+        }
+    }
 }
 
 bool connectMqtt() {
