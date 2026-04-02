@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/device">
+        <file>picture/FAN_ON.jpg</file>
+        <file>picture/FAN_OFF.jpg</file>
+        <file>picture/Humidifier_ON.png</file>
+        <file>picture/Humidifier_OFF.png</file>
+    </qresource>
+</RCC>

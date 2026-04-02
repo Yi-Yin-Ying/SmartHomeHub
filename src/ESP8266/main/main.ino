@@ -17,6 +17,7 @@ const char* mqtt_user = "ESP8266";
 const char* mqtt_pass = "123456";
 
 const char* datatopic="Sensor/Data";
+const char* Controltopic="Device/Control";
 
 void connectWiFi(const char* wifiName, const char* wifiPass, int timeoutSec) {
     digitalWrite(ledPin, LOW);
@@ -45,7 +46,7 @@ bool connectMqtt() {
         return false;
     }
     if (pc.connect(mqtt_id, mqtt_user, mqtt_pass)) {
-        pc.subscribe("test");
+        pc.subscribe(Controltopic);
         digitalWrite(mqttLedPin, HIGH);
         return true;
     }
