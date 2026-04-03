@@ -127,47 +127,12 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 
 /* USER CODE BEGIN 1 */
 /**
-  * @brief  Get receive buffer pointer
-  */
-uint8_t *UART_GetRxBuffer(void)
-{
-  return rx_buf;
-}
-
-/**
-  * @brief  Get received data length
-  */
-uint16_t UART_GetRxLen(void)
-{
-  return rx_len;
-}
-
-/**
-  * @brief  Set received data length
-  */
-void UART_SetRxLen(uint16_t len)
-{
-  rx_len = len;
-}
-
-/**
-  * @brief  Clear receive buffer
-  */
-void UART_ClearRxBuffer(void)
-{
-  rx_len = 0;
-  memset(rx_buf, 0, RX_BUF_SIZE);
-}
-
-/**
   * @brief  UART receive complete callback
   */
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
   if (huart->Instance == USART1)
   {
-    /* Echo back for debug */
-    HAL_UART_Transmit(&huart1, &rx_byte, 1, 10);
     
     /* Store received byte */
     if (rx_len < RX_BUF_SIZE)
