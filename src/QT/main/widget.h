@@ -40,7 +40,7 @@ private:
     QMqttSubscription *m_subscription = nullptr;
 
     QString hostname;
-    uint16_t port = 8883;
+    uint16_t port =0;
     QString clientID;
     QString username;
     QString password;
