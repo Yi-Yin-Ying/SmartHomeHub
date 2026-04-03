@@ -42,6 +42,5 @@
 
 [QT的MQTT][qt-mqtt]，[MQTT服务器][emqx]
 
-[QT的MQTT]: https://github.com/qt/qtmqtt
-[MQTT服务器]: https://www.emqx.com/zh
-
+[qt-mqtt]:https://github.com/qt/qtmqtt
+[emqx]:https://www.emqx.com/zh
