@@ -36,7 +36,7 @@
 
 ### 4.2 数据接收
 
-![](image/数据接收.png)
+<img src="image/数据接收.png" style="zoom:50%;" />
 
 ## 5 相关网站
 
