@@ -44,6 +44,6 @@ private:
     QString clientID;
     QString username;
     QString password;
-    QString datatopic = "Sensor/Data";
-    QString controltopic = "Device/Control";
+    QString datatopic;
+    QString controltopic;
 };

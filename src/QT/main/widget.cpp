@@ -6,6 +6,8 @@
 #include <QMap>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QFile>
+#include <QCoreApplication>
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -24,11 +26,23 @@ void Widget::init()
 {
     m_client = new QMqttClient(this);
 
-    hostname = "s6b22c1f.ala.cn-hangzhou.emqxsl.cn";
-    port = 8883;
-    clientID = "emqx_cloudf37bc1";
-    username = "QT";
-    password = "123456";
+    // 从 JSON 文件读取配置
+    QString configPath = QCoreApplication::applicationDirPath() + "/../configuration/连接信息.json";
+    QFile file(configPath);
+    if (file.open(QIODevice::ReadOnly)) {
+        QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
+        if (!doc.isNull()) {
+            QJsonObject obj = doc.object();
+            if (obj.contains("hostname")) hostname = obj["hostname"].toString();
+            if (obj.contains("port")) port = obj["port"].toInt();
+            if (obj.contains("clientID")) clientID = obj["clientID"].toString();
+            if (obj.contains("username")) username = obj["username"].toString();
+            if (obj.contains("password")) password = obj["password"].toString();
+            if (obj.contains("datatopic")) datatopic = obj["datatopic"].toString();
+            if (obj.contains("controltopic")) controltopic = obj["controltopic"].toString();
+        }
+        file.close();
+    }
 
     ui->hostnamelineEdit->setText(hostname);
     ui->portlineEdit->setText(QString::number(port));
@@ -36,6 +50,7 @@ void Widget::init()
     ui->usernamelineEdit->setText(username);
     ui->passwordlineEdit->setText(password);
     ui->topicLineEdit->setText(datatopic);
+    // ui->se->setText(controltopic);
 
     connect(m_client, &QMqttClient::connected, this, &Widget::onConnected);
     connect(m_client, &QMqttClient::disconnected, this, &Widget::onDisconnected);
